@@ -22,9 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'authenticate']);
-Route::get('open', [DataController::class, 'open']);
+
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', [UserController::class, 'getAuthenticatedUser']);
-    Route::get('closed', [DataController::class, 'closed']);
+    Route::any('product/{id?}', [DataController::class, 'product']);
+    Route::any('create-product', [DataController::class, 'create_product']);
+    Route::any('update-product', [DataController::class, 'update_product']);
 });
